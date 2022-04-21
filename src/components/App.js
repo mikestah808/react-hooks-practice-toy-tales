@@ -38,9 +38,16 @@ function App() {
     })
   }
 
-  function handleUpdateNewToy(id, t){
-    const oldToys = toys.filter((toy) => id !== toy.id)
-    const newToysList = [...oldToys, t].sort((a, b) => a.id - b.id > 0)
+  function handleUpdateNewToy(id, updatedToy){
+    const newToysList = toys.map((toy) => {
+      console.log(toy)
+      if(id === toy.id){
+        console.log(updatedToy)
+        return updatedToy
+      } else {
+        return toy
+      }
+    })
     setToys(newToysList)
 
   }
