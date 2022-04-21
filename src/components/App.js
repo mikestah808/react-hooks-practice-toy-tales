@@ -38,18 +38,29 @@ function App() {
     })
   }
 
-  function handleToyLikes(id){
+  function handleUpdateNewToy(id, t){
+    const oldToys = toys.filter((toy) => id !== toy.id)
+    const newToysList = [...oldToys, t].sort((a, b) => a.id - b.id > 0)
+    setToys(newToysList)
+
+  }
+
+
+
+  function handleToyLikes(id, likes){
+    console.log(toys)
     fetch("http://localhost:3001/toys/" + id, {
       method: "PATCH",
       headers: {
         "Content-Type" : "application/json",
       },
       body: JSON.stringify({
-        likes: toys.id
+        likes: likes + 1,
+
       })
     })
     .then((resp) => resp.json())
-    .then((toy) => console.log(toy))
+    .then((toy) => handleUpdateNewToy(id, toy))
   }
 
   return (
